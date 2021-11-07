@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="weather.css"> 
+     <!-- <link rel="stylesheet" href="w.css"> -->
+     
+    <title>WEATHER DETECTING WEBSITE</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+</head>
+<body id="body">
+    <!-- <script src="weather.js"></script> -->
+    <h1 class="head" id="h1">WEATHER DETECTING WEBSITE</h1>
+    <p class="head" id="h2"style="font-family:'Poppins', sans-serif;">PLEASE ENTER THE CITY NAME TO DETECT THE WEATHER OF THE LOCATION</p>
+    
+    <div id="h3">
+     <input type="text" class="inputValue" id="inputValue" placeholder="ENTER THE CITY NAME"> 
+     <button class="head" id="but" style="font-family:'Poppins', sans-serif;" onclick="getWeather()"> SUBMIT</button>
+    </div>
+    <div id="ans">
+        <h2 class="temp" id ="temp"></h2>
+        <h2 class="desc" id="desc"></h2>
+        <h3 class="namevalue" id="namevalue"></h3>
+    </div>
+</body>
+    <script>
+
+        // let button=document.getElementById('#but');
+
+function getWeather(){
+let inp=document.getElementById("inputValue").value;
+let namevalue=document.getElementById("namevalue");
+let desc=document.getElementById("desc");
+let temp=document.getElementById("temp");
+
+let api = 'https://api.openweathermap.org/data/2.5/weather';
+let apikey = '200fb42bc207a035d2776d9562c5bd46';
+let url =
+      api +
+      "?q=" +
+      inp +
+      "&appid=" +
+      apikey +
+      "&units=imperial";
+
+    
+      fetch(url)  
+  
+
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+       namevalue.innerHTML = data.name;
+       let tempValue = Math.round(data.main.temp);
+       temp.innerHTML = ((tempValue.toFixed()-32)*0.55) + "° C";
+       desc.innerHTML = data.weather[0].main;
+       
+       
+    
+    });
+}
+        
+function error() {
+      desc.innerHTML = "Unable to retrieve your location";
+    }
+    
+    getWeather();
+
+
+    </script>
+    
+    
+
+</html>
